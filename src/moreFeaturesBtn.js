@@ -1,3 +1,6 @@
+// 导入模态导航器
+import modalNavigator from './modalNavigator.js';
+
 document.addEventListener('DOMContentLoaded', () => {
   const button = document.getElementById('moreFeaturesBtn');
   if (!button) return;
@@ -93,14 +96,38 @@ document.addEventListener('DOMContentLoaded', () => {
     button.style.top = `${top}px`;
   });
 
-  const handlePointerEnd = (event) => {
+  const handlePointerEnd = async (event) => {
     if (!pointerActive) return;
     pointerActive = false;
     button.releasePointerCapture(event.pointerId);
     if (moved) {
       snapToEdge();
     } else {
-      window.location.href = targetUrl;
+      // 跳转前断开蓝牙连接
+      // if (window.bleSerial && typeof window.bleSerial.disconnect === 'function') {
+      //   try {
+      //     // 如果有 isConnected 方法则检查，否则直接尝试断开
+      //     const shouldDisconnect = typeof window.bleSerial.isConnected === 'function' 
+      //       ? window.bleSerial.isConnected() 
+      //       : true;
+            
+      //     if (shouldDisconnect) {
+      //       console.log('Disconnecting Bluetooth before navigation...');
+      //       await window.bleSerial.disconnect();
+      //     }
+      //   } catch (e) {
+      //     console.error('Error disconnecting Bluetooth:', e);
+      //   }
+      // }
+
+      // 使用模态导航器而不是直接跳转
+      // 这样可以保持主页面(index.html)继续运行
+      if (typeof window.Capacitor !== 'undefined') {
+        modalNavigator.open(targetUrl);
+      } else {
+        // Web 环境下仍使用普通导航
+        window.location.href = targetUrl;
+      }
     }
   };
 

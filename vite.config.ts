@@ -29,7 +29,8 @@ export default defineConfig({
         'FileSaver.js',
         'gp_wasm.js',
         'gp_wasm.wasm',
-        'gp_wasm.data'
+        'gp_wasm.data',
+        'modalNavigator.js'
       ];
       
       files.forEach(file => {

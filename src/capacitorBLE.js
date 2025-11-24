@@ -156,15 +156,15 @@ async scanAndSelectDevice() {
             promiseReject(new Error(isZh ? '用户取消选择' : 'User cancelled'));
         };
 
-        // 30 秒后自动停止扫描
+        // 3 秒后自动停止扫描
         setTimeout(() => {
             clearInterval(updateTimer);
             this.bleClient.stopLEScan();
-            if (Object.keys(foundDevices).length === 0) {
-                dialog.remove();
-                promiseReject(new Error(i18n.noDevices));
-            }
-        }, 30000);
+            // if (Object.keys(foundDevices).length === 0) {
+            //     dialog.remove();
+            //     promiseReject(new Error(i18n.noDevices));
+            // }
+        }, 3000);
     });
 }
 

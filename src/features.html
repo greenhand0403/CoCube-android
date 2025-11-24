@@ -256,7 +256,7 @@
   </head>
   <body>
     <div class="header">
-      <button class="back-btn" onclick="window.location.href='index.html'">
+      <button class="back-btn" id="backButton">
         <svg viewBox="0 0 24 24" width="24" height="24">
           <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
         </svg>
@@ -265,7 +265,7 @@
     </div>
 
     <div class="features-container">
-      <div class="feature-card" onclick="window.location.href='features/soccer.html'">
+      <div class="feature-card" id="soccerCard">
         <div class="feature-icon soccer">⚽</div>
         <div class="feature-content">
           <div class="feature-title" id="soccerTitle"></div>
@@ -289,5 +289,36 @@
     </div>
 
     <script type="module" src="capacitorBLE.js"></script>
+    <script>
+      // 处理返回按钮和卡片点击
+      document.addEventListener('DOMContentLoaded', () => {
+        const backButton = document.getElementById('backButton');
+        const soccerCard = document.getElementById('soccerCard');
+        
+        // 返回按钮处理
+        backButton.addEventListener('click', () => {
+          // 检查是否在模态窗口中
+          if (window.parent !== window && window.parent.modalNavigator) {
+            // 在模态窗口中，调用父窗口的关闭方法
+            window.parent.modalNavigator.close();
+          } else {
+            // 直接导航的情况
+            window.location.href = 'index.html';
+          }
+        });
+        
+        // 足球卡片点击处理
+        soccerCard.addEventListener('click', () => {
+          // 检查是否在模态窗口中
+          if (window.parent !== window && window.parent.modalNavigator) {
+            // 在模态窗口中，更新 iframe 源
+            window.parent.modalNavigator.open('features/soccer.html');
+          } else {
+            // 直接导航
+            window.location.href = 'features/soccer.html';
+          }
+        });
+      });
+    </script>
   </body>
 </html>

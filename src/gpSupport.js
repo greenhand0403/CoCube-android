@@ -57,6 +57,8 @@ var GP = {
 	audioInReady: false,
 	audioInSource: null,
 	audioInCapture: null,
+
+	defaultEditText: '',
 };
 
 // Add the following to the meta tags in the header to suppress scaling of the GP canvas
@@ -501,7 +503,7 @@ function initFloatingInput() {
         
         // 显示容器
         floatingContainer.style.display = 'flex';
-        floatingInput.value = '';
+        floatingInput.value = GP.defaultEditText;
         
         // 标记为激活状态
         isFloatingInputActive = true;
@@ -527,7 +529,6 @@ function initFloatingInput() {
 		
 		const value = floatingInput.value;
 		
-		// 🔑 关键修改:完全覆盖,而非追加
 		// 1. 先清空原有内容(发送退格键删除所有字符)
 
 		const KEY_DOWN = 5;
@@ -755,6 +756,13 @@ function uploadFiles(files) {
 		recordFile(todo.shift());
 	}
 }
+
+function forceFullDownload() {
+    // GP 收到 stop 消息会调用 stopAndSyncScripts
+    queueGPMessage('forceFullDownload');
+	console.log('Forcing full download of scripts from server.');
+}
+window.forceFullDownload = forceFullDownload;
 
 function adjustButtonVisibility() {
 	// Show the appropriate buttons in a mobile or non-mobile browser.
@@ -1765,11 +1773,13 @@ if ((typeof chrome != 'undefined') &&
 	chrome.runtime.getBackgroundPage(GP_ChromebookLaunch);
 }
 
-// warn before leaving page
+// warn before leaving page (only in web environment, not in Capacitor)
 
-window.onbeforeunload = function () {
-	return "Leave this page? (changes will be lost)";
-};
+if (!isCapacitorEnvironment()) {
+	window.onbeforeunload = function () {
+		return "Leave this page? (changes will be lost)";
+	};
+}
 
 // progressive web app service worker
 
