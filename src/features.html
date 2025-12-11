@@ -1,282 +1,304 @@
 <!doctype html>
 <html lang="zh-CN" dir="ltr">
-  <head>
-    <meta charset="UTF-8" />
-    <title>更多功能 - CoCube MicroBlocks</title>
-    <meta
-      name="viewport"
-      content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="msapplication-tap-highlight" content="no" />
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="mobile-web-app-capable" content="yes">
-    <link rel="icon" href="favicon.ico" type="image/x-icon" />
-    <script>
-        // 语言检测
-        const lang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
-        const isZh = lang.startsWith('zh');
 
-        // 翻译文本
-        const i18n = {
-            zh: {
-                title: '更多功能',
-                soccerTitle: '足球对抗',
-                soccerDesc: '使用手机或Pad控制机器人进行足球比赛',
-                racingTitle: '模拟赛道',
-                racingDesc: '使用手机或Pad控制机器人在赛道上进行比赛'
-            },
-            en: {
-                title: 'More Features',
-                soccerTitle: 'Soccer Battle',
-                soccerDesc: 'Control the robot for soccer matches using phone or tablet',
-                racingTitle: 'Racing Track',
-                racingDesc: 'Control the robot on racing tracks using phone or tablet'
-            }
-        };
+<head>
+  <meta charset="UTF-8" />
+  <title>更多功能 - CoCube MicroBlocks</title>
+  <meta name="viewport"
+    content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <meta name="format-detection" content="telephone=no" />
+  <meta name="msapplication-tap-highlight" content="no" />
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <script>
+    // 语言检测
+    const lang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+    const isZh = lang.startsWith('zh');
 
-        const t = isZh ? i18n.zh : i18n.en;
-
-        // 页面加载后设置文本
-        document.addEventListener('DOMContentLoaded', () => {
-            document.getElementById('pageTitle').textContent = t.title;
-            document.getElementById('soccerTitle').textContent = t.soccerTitle;
-            document.getElementById('soccerDesc').textContent = t.soccerDesc;
-            // document.getElementById('racingTitle').textContent = t.racingTitle;
-            // document.getElementById('racingDesc').textContent = t.racingDesc;
-        });
-    </script>
-
-    <style>
-      * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
+    // 翻译文本
+    const i18n = {
+      zh: {
+        title: '更多功能',
+        soccerTitle: '足球对抗',
+        soccerDesc: '使用手机或Pad控制机器人进行足球比赛',
+        cargoTitle: '物品搬运',
+        cargoDesc: '使用手机或Pad控制机器人搬运物品',
+        racingTitle: '模拟赛道',
+        racingDesc: '使用手机或Pad控制机器人在赛道上进行比赛'
+      },
+      en: {
+        title: 'More Features',
+        soccerTitle: 'Soccer Battle',
+        soccerDesc: 'Control the robot for soccer matches using phone or tablet',
+        cargoTitle: 'Cargo Transport',
+        cargoDesc: 'Control the robot to transport cargo using phone or tablet',
+        racingTitle: 'Racing Track',
+        racingDesc: 'Control the robot on racing tracks using phone or tablet'
       }
+    };
 
-      body {
-        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
-        padding: 20px;
-      }
+    const t = isZh ? i18n.zh : i18n.en;
 
-      .header {
-        display: flex;
-        align-items: center;
-        padding: 20px 0;
-        margin-bottom: 30px;
-      }
+    // 页面加载后设置文本
+    document.addEventListener('DOMContentLoaded', () => {
+      document.getElementById('pageTitle').textContent = t.title;
+      document.getElementById('soccerTitle').textContent = t.soccerTitle;
+      document.getElementById('soccerDesc').textContent = t.soccerDesc;
+      document.getElementById('cargoTitle').textContent = t.cargoTitle;
+      document.getElementById('cargoDesc').textContent = t.cargoDesc;
+      // document.getElementById('racingTitle').textContent = t.racingTitle;
+      // document.getElementById('racingDesc').textContent = t.racingDesc;
+    });
+  </script>
 
-      .back-btn {
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background: rgba(255, 255, 255, 0.2);
-        border: none;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        cursor: pointer;
-        transition: all 0.3s ease;
-      }
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-      .back-btn:hover {
-        background: rgba(255, 255, 255, 0.3);
-        transform: scale(1.05);
-      }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 20px;
+    }
 
-      .back-btn svg {
-        fill: white;
-      }
+    .header {
+      display: flex;
+      align-items: center;
+      padding: 20px 0;
+      margin-bottom: 30px;
+    }
 
+    .back-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .back-btn:hover {
+      background: rgba(255, 255, 255, 0.3);
+      transform: scale(1.05);
+    }
+
+    .back-btn svg {
+      fill: white;
+    }
+
+    .header h1 {
+      color: white;
+      font-size: 24px;
+      margin-left: 15px;
+      font-weight: 600;
+    }
+
+    .features-container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    .feature-card {
+      background: white;
+      border-radius: 16px;
+      padding: 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
+    }
+
+    .feature-card:active {
+      transform: translateY(-2px);
+    }
+
+    .feature-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      margin-right: 20px;
+      flex-shrink: 0;
+    }
+
+    .feature-icon.soccer {
+      background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+    }
+
+    .feature-icon.cargo {
+      background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+
+    .feature-icon.racing {
+      background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
+    }
+
+    .feature-content {
+      flex: 1;
+    }
+
+    .feature-title {
+      font-size: 20px;
+      font-weight: 600;
+      color: #2d3748;
+      margin-bottom: 8px;
+    }
+
+    .feature-description {
+      font-size: 14px;
+      color: #718096;
+      line-height: 1.5;
+    }
+
+    .feature-arrow {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      opacity: 0.3;
+    }
+
+    @media (min-width: 768px) and (min-height: 768px) {
       .header h1 {
-        color: white;
-        font-size: 24px;
-        margin-left: 15px;
-        font-weight: 600;
-      }
-
-      .features-container {
-        max-width: 800px;
-        margin: 0 auto;
+        font-size: 32px;
       }
 
       .feature-card {
-        background: white;
-        border-radius: 16px;
-        padding: 24px;
-        margin-bottom: 20px;
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
-        cursor: pointer;
-        transition: all 0.3s ease;
-        display: flex;
-        align-items: center;
-        text-decoration: none;
-        color: inherit;
-      }
-
-      .feature-card:hover {
-        transform: translateY(-4px);
-        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.2);
-      }
-
-      .feature-card:active {
-        transform: translateY(-2px);
+        padding: 32px;
       }
 
       .feature-icon {
-        width: 60px;
-        height: 60px;
-        border-radius: 12px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 32px;
-        margin-right: 20px;
-        flex-shrink: 0;
-      }
-
-      .feature-icon.soccer {
-        background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
-      }
-
-      .feature-icon.racing {
-        background: linear-gradient(135deg, #ee0979 0%, #ff6a00 100%);
-      }
-
-      .feature-content {
-        flex: 1;
+        width: 80px;
+        height: 80px;
+        font-size: 40px;
+        margin-right: 24px;
       }
 
       .feature-title {
-        font-size: 20px;
-        font-weight: 600;
-        color: #2d3748;
-        margin-bottom: 8px;
+        font-size: 24px;
       }
 
       .feature-description {
-        font-size: 14px;
-        color: #718096;
-        line-height: 1.5;
+        font-size: 16px;
+      }
+    }
+
+    /* 手机横屏适配 */
+    @media (max-height: 500px) and (orientation: landscape) {
+      body {
+        padding: 10px;
+        min-height: auto;
+      }
+
+      .header {
+        padding: 10px 0;
+        margin-bottom: 15px;
+      }
+
+      .back-btn {
+        width: 32px;
+        height: 32px;
+      }
+
+      .back-btn svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .header h1 {
+        font-size: 18px;
+        margin-left: 10px;
+      }
+
+      .features-container {
+        max-width: 500px;
+      }
+
+      .feature-card {
+        padding: 16px;
+        margin-bottom: 12px;
+        border-radius: 12px;
+      }
+
+      .feature-icon {
+        width: 48px;
+        height: 48px;
+        font-size: 24px;
+        margin-right: 16px;
+        border-radius: 8px;
+      }
+
+      .feature-title {
+        font-size: 16px;
+        margin-bottom: 4px;
+      }
+
+      .feature-description {
+        font-size: 12px;
       }
 
       .feature-arrow {
-        width: 24px;
-        height: 24px;
-        flex-shrink: 0;
-        opacity: 0.3;
+        width: 20px;
+        height: 20px;
       }
+    }
+  </style>
+</head>
 
-      @media (min-width: 768px) and (min-height: 768px) {
-        .header h1 {
-          font-size: 32px;
-        }
+<body>
+  <div class="header">
+    <button class="back-btn" id="backButton">
+      <svg viewBox="0 0 24 24" width="24" height="24">
+        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+      </svg>
+    </button>
+    <h1 id="pageTitle"></h1>
+  </div>
 
-        .feature-card {
-          padding: 32px;
-        }
-
-        .feature-icon {
-          width: 80px;
-          height: 80px;
-          font-size: 40px;
-          margin-right: 24px;
-        }
-
-        .feature-title {
-          font-size: 24px;
-        }
-
-        .feature-description {
-          font-size: 16px;
-        }
-      }
-      /* 手机横屏适配 */
-      @media (max-height: 500px) and (orientation: landscape) {
-        body {
-          padding: 10px;
-          min-height: auto;
-        }
-
-        .header {
-          padding: 10px 0;
-          margin-bottom: 15px;
-        }
-
-        .back-btn {
-          width: 32px;
-          height: 32px;
-        }
-
-        .back-btn svg {
-          width: 18px;
-          height: 18px;
-        }
-
-        .header h1 {
-          font-size: 18px;
-          margin-left: 10px;
-        }
-
-        .features-container {
-          max-width: 500px;
-        }
-
-        .feature-card {
-          padding: 16px;
-          margin-bottom: 12px;
-          border-radius: 12px;
-        }
-
-        .feature-icon {
-          width: 48px;
-          height: 48px;
-          font-size: 24px;
-          margin-right: 16px;
-          border-radius: 8px;
-        }
-
-        .feature-title {
-          font-size: 16px;
-          margin-bottom: 4px;
-        }
-
-        .feature-description {
-          font-size: 12px;
-        }
-
-        .feature-arrow {
-          width: 20px;
-          height: 20px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="header">
-      <button class="back-btn" id="backButton">
-        <svg viewBox="0 0 24 24" width="24" height="24">
-          <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
-        </svg>
-      </button>
-      <h1 id="pageTitle"></h1>
+  <div class="features-container">
+    <div class="feature-card" id="soccerCard">
+      <div class="feature-icon soccer">⚽</div>
+      <div class="feature-content">
+        <div class="feature-title" id="soccerTitle"></div>
+        <div class="feature-description" id="soccerDesc"></div>
+      </div>
+      <svg class="feature-arrow" viewBox="0 0 24 24">
+        <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" fill="currentColor" />
+      </svg>
     </div>
 
-    <div class="features-container">
-      <div class="feature-card" id="soccerCard">
-        <div class="feature-icon soccer">⚽</div>
-        <div class="feature-content">
-          <div class="feature-title" id="soccerTitle"></div>
-          <div class="feature-description" id="soccerDesc"></div>
-        </div>
-        <svg class="feature-arrow" viewBox="0 0 24 24">
-          <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" fill="currentColor"/>
-        </svg>
+    <div class="feature-card" id="cargoCard">
+      <div class="feature-icon cargo">📦</div>
+      <div class="feature-content">
+        <div class="feature-title" id="cargoTitle"></div>
+        <div class="feature-description" id="cargoDesc"></div>
       </div>
+      <svg class="feature-arrow" viewBox="0 0 24 24">
+        <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" fill="currentColor" />
+      </svg>
+    </div>
 
-      <!-- <div class="feature-card" onclick="window.location.href='features/racing.html'">
+    <!-- <div class="feature-card" onclick="window.location.href='features/racing.html'">
         <div class="feature-icon racing">🏁</div>
         <div class="feature-content">
           <div class="feature-title" id="racingTitle"></div>
@@ -286,39 +308,53 @@
           <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" fill="currentColor"/>
         </svg>
       </div> -->
-    </div>
+  </div>
 
-    <script type="module" src="capacitorBLE.js"></script>
-    <script>
-      // 处理返回按钮和卡片点击
-      document.addEventListener('DOMContentLoaded', () => {
-        const backButton = document.getElementById('backButton');
-        const soccerCard = document.getElementById('soccerCard');
-        
-        // 返回按钮处理
-        backButton.addEventListener('click', () => {
-          // 检查是否在模态窗口中
-          if (window.parent !== window && window.parent.modalNavigator) {
-            // 在模态窗口中，调用父窗口的关闭方法
-            window.parent.modalNavigator.close();
-          } else {
-            // 直接导航的情况
-            window.location.href = 'index.html';
-          }
-        });
-        
-        // 足球卡片点击处理
-        soccerCard.addEventListener('click', () => {
-          // 检查是否在模态窗口中
-          if (window.parent !== window && window.parent.modalNavigator) {
-            // 在模态窗口中，更新 iframe 源
-            window.parent.modalNavigator.open('features/soccer.html');
-          } else {
-            // 直接导航
-            window.location.href = 'features/soccer.html';
-          }
-        });
+  <script type="module" src="capacitorBLE.js"></script>
+  <script>
+    // 处理返回按钮和卡片点击
+    document.addEventListener('DOMContentLoaded', () => {
+      const backButton = document.getElementById('backButton');
+      const soccerCard = document.getElementById('soccerCard');
+      const cargoCard = document.getElementById('cargoCard');
+
+      // 返回按钮处理
+      backButton.addEventListener('click', () => {
+        // 检查是否在模态窗口中
+        if (window.parent !== window && window.parent.modalNavigator) {
+          // 在模态窗口中，调用父窗口的关闭方法
+          window.parent.modalNavigator.close();
+        } else {
+          // 直接导航的情况
+          window.location.href = 'index.html';
+        }
       });
-    </script>
-  </body>
+
+      // 足球卡片点击处理
+      soccerCard.addEventListener('click', () => {
+        // 检查是否在模态窗口中
+        if (window.parent !== window && window.parent.modalNavigator) {
+          // 在模态窗口中，更新 iframe 源
+          window.parent.modalNavigator.open('features/soccer.html');
+        } else {
+          // 直接导航
+          window.location.href = 'features/soccer.html';
+        }
+      });
+
+      // 物品搬运卡片点击处理
+      cargoCard.addEventListener('click', () => {
+        // 检查是否在模态窗口中
+        if (window.parent !== window && window.parent.modalNavigator) {
+          // 在模态窗口中，更新 iframe 源
+          window.parent.modalNavigator.open('features/cargo.html');
+        } else {
+          // 直接导航
+          window.location.href = 'features/cargo.html';
+        }
+      });
+    });
+  </script>
+</body>
+
 </html>
