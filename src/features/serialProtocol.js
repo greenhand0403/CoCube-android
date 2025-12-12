@@ -34,6 +34,7 @@ const OPCODES = Object.freeze({
   START_WRITING_FILE: 0xCC,
   ACK_CHUNK_RECEIVED: 0x17,
   ACK_ALTERNATE: 0x11,
+  PING: 0X1A,
 });
 
 // -------------------- 工具函数 --------------------
@@ -146,6 +147,9 @@ const startAll = (serialPort) =>
 const stopAll = (serialPort) => 
   sendShortMsg(serialPort, OPCODES.STOP_ALL, 0);
 
+const ping = (serialPort) =>
+  sendShortMsg(serialPort, OPCODES.PING, 0);
+
 const getVariableValue = (serialPort, varID) => 
   sendShortMsg(serialPort, OPCODES.GET_VAR_VALUE, varID);
 
@@ -196,31 +200,31 @@ const getAllCRCs = (serialPort) =>
   sendShortMsg(serialPort, OPCODES.GET_ALL_CRCS, 0);
 
 // -------------------- 消息监听 --------------------
-// function listenSerial(serialPort, callback) {
-//   const { GP_serialInputBuffers } = serialPort;
+function listenSerial(serialPort, callback) {
+  const { feature_SerialInputBuffers } = serialPort;
   
-//   for (const buffer of GP_serialInputBuffers) {
-//     try {
-//       // 短消息
-//       if (buffer[0] === FLAG_SHORT && buffer.length >= 3) {
-//         callback(parseMsg(buffer.slice(0, 3)));
-//         continue;
-//       }
+  for (const buffer of feature_SerialInputBuffers) {
+    try {
+      // 短消息
+      if (buffer[0] === FLAG_SHORT && buffer.length >= 3) {
+        callback(parseMsg(buffer.slice(0, 3)));
+        continue;
+      }
       
-//       // 长消息
-//       if (buffer[0] === FLAG_LONG && buffer.length >= 5) {
-//         const size = fromLE(buffer.slice(3, 5));
-//         if (buffer.length >= 5 + size) {
-//           callback(parseMsg(buffer.slice(0, 5 + size)));
-//         }
-//       }
-//     } catch (error) {
-//       console.error('Parse message error:', error);
-//     }
-//   }
+      // 长消息
+      if (buffer[0] === FLAG_LONG && buffer.length >= 5) {
+        const size = fromLE(buffer.slice(3, 5));
+        if (buffer.length >= 5 + size) {
+          callback(parseMsg(buffer.slice(0, 5 + size)));
+        }
+      }
+    } catch (error) {
+      console.error('Parse message error:', error);
+    }
+  }
   
-//   GP_serialInputBuffers.length = 0;
-// }
+  feature_SerialInputBuffers.length = 0;
+}
 
 // -------------------- 文件传输 --------------------
 async function sendFileChunk(serialPort, transferID, offset, data) {
@@ -304,8 +308,11 @@ export {
   stopChunk,
   startAll,
   stopAll,
+  ping,
   getVariableValue,
   setVariableValue,
   deleteAllCode,
   systemReset,
+  listenSerial,
+  bytesToStr,
 };

@@ -24,8 +24,8 @@
         soccerDesc: '使用手机或Pad控制机器人进行足球比赛',
         cargoTitle: '物品搬运',
         cargoDesc: '使用手机或Pad控制机器人搬运物品',
-        racingTitle: '模拟赛道',
-        racingDesc: '使用手机或Pad控制机器人在赛道上进行比赛'
+        trackTitle: '赛道挑战',
+        trackDesc: '在指定时间内完成赛道挑战，挑战你的极限',
       },
       en: {
         title: 'More Features',
@@ -33,8 +33,8 @@
         soccerDesc: 'Control the robot for soccer matches using phone or tablet',
         cargoTitle: 'Cargo Transport',
         cargoDesc: 'Control the robot to transport cargo using phone or tablet',
-        racingTitle: 'Racing Track',
-        racingDesc: 'Control the robot on racing tracks using phone or tablet'
+        trackTitle: 'Racing Challenge',
+        trackDesc: 'Complete the racing challenge within time limit',
       }
     };
 
@@ -47,6 +47,8 @@
       document.getElementById('soccerDesc').textContent = t.soccerDesc;
       document.getElementById('cargoTitle').textContent = t.cargoTitle;
       document.getElementById('cargoDesc').textContent = t.cargoDesc;
+      document.getElementById('trackTitle').textContent = t.trackTitle;
+      document.getElementById('trackDesc').textContent = t.trackDesc;
       // document.getElementById('racingTitle').textContent = t.racingTitle;
       // document.getElementById('racingDesc').textContent = t.racingDesc;
     });
@@ -148,6 +150,10 @@
 
     .feature-icon.cargo {
       background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+    }
+
+    .feature-icon.track {
+      background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
     }
 
     .feature-icon.racing {
@@ -298,6 +304,17 @@
       </svg>
     </div>
 
+    <div class="feature-card" id="trackCard">
+      <div class="feature-icon track">🏁</div>
+      <div class="feature-content">
+        <div class="feature-title" id="trackTitle"></div>
+        <div class="feature-description" id="trackDesc"></div>
+      </div>
+      <svg class="feature-arrow" viewBox="0 0 24 24">
+        <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z" fill="currentColor" />
+      </svg>
+    </div>
+
     <!-- <div class="feature-card" onclick="window.location.href='features/racing.html'">
         <div class="feature-icon racing">🏁</div>
         <div class="feature-content">
@@ -317,6 +334,7 @@
       const backButton = document.getElementById('backButton');
       const soccerCard = document.getElementById('soccerCard');
       const cargoCard = document.getElementById('cargoCard');
+      const trackCard = document.getElementById('trackCard');
 
       // 返回按钮处理
       backButton.addEventListener('click', () => {
@@ -351,6 +369,18 @@
         } else {
           // 直接导航
           window.location.href = 'features/cargo.html';
+        }
+      });
+
+      // 赛道挑战卡片点击处理
+      trackCard.addEventListener('click', () => {
+        // 检查是否在模态窗口中
+        if (window.parent !== window && window.parent.modalNavigator) {
+          // 在模态窗口中，更新 iframe 源
+          window.parent.modalNavigator.open('features/track.html');
+        } else {
+          // 直接导航
+          window.location.href = 'features/track.html';
         }
       });
     });

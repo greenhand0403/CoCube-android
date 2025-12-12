@@ -9,7 +9,7 @@ const MICROBLOCKS_TX_CHAR_UUID = 'bb37a003-b922-4018-8e74-e14824b3a638' // board
 
 class CapacitorBLESerial {
     // class variables
-    GP_serialInputBuffers = [];
+    feature_SerialInputBuffers = [];
 
     constructor() {
         this.device = null;
@@ -210,6 +210,7 @@ createDeviceDialog() {
                 (data) => {
                     const value = new Uint8Array(data.buffer);
                     GP_serialInputBuffers.push(value);
+                    this.feature_SerialInputBuffers.push(value);
                 }
             );
 

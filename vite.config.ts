@@ -13,8 +13,8 @@ export default defineConfig({
         main: './src/index.html',
         features: './src/features.html',
         soccer: './src/features/soccer.html',
-        racing: './src/features/racing.html',
-        cargo: './src/features/cargo.html'
+        cargo: './src/features/cargo.html',
+        track: './src/features/track.html'
       }
     }
   },
