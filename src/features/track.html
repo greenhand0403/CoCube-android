@@ -1449,9 +1449,9 @@
 
         async function handleConnect() {
             await bleSerial.connect();
-            // if (bleSerial.isConnected()) {
-            //     await downloadProgram();
-            // }
+            if (bleSerial.isConnected()) {
+                await downloadProgram();
+            }
             updateConnectStatus();
         }
 

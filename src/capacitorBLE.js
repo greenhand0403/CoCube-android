@@ -31,6 +31,8 @@ async scanAndSelectDevice() {
     document.body.appendChild(dialog);
 
     const foundDevices = {};
+    let deviceOrder = []; // 保存设备顺序
+    let orderLocked = false; // 3秒后锁定已有设备顺序
     let updateTimer = null;
     let promiseResolve = null;
     let promiseReject = null;
@@ -74,8 +76,18 @@ async scanAndSelectDevice() {
 
     // 更新设备列表的函数
     const updateDeviceList = () => {
-        const devices = Object.values(foundDevices)
-            .sort((a, b) => b.rssi - a.rssi);
+        let devices;
+        
+        if (!orderLocked) {
+            // 3秒内：按信号强度排序
+            devices = Object.values(foundDevices)
+                .sort((a, b) => b.rssi - a.rssi);
+            // 更新顺序列表
+            deviceOrder = devices.map(d => d.deviceId);
+        } else {
+            // 3秒后：保持已有顺序，新设备添加到末尾
+            devices = deviceOrder.map(id => foundDevices[id]).filter(Boolean);
+        }
         
         const listContainer = dialog.querySelector('.device-list');
         
@@ -140,6 +152,10 @@ async scanAndSelectDevice() {
                             ...result.device,
                             rssi: result.rssi
                         };
+                        // 如果顺序已锁定，新设备添加到末尾
+                        if (orderLocked && !deviceOrder.includes(deviceId)) {
+                            deviceOrder.push(deviceId);
+                        }
                     }
                 }
             }
@@ -156,15 +172,16 @@ async scanAndSelectDevice() {
             promiseReject(new Error(isZh ? '用户取消选择' : 'User cancelled'));
         };
 
-        // 3 秒后自动停止扫描
+        // 3 秒后锁定设备顺序
+        setTimeout(() => {
+            orderLocked = true;
+        }, 3000);
+
+        // 30 秒后自动停止扫描
         setTimeout(() => {
             clearInterval(updateTimer);
             this.bleClient.stopLEScan();
-            // if (Object.keys(foundDevices).length === 0) {
-            //     dialog.remove();
-            //     promiseReject(new Error(i18n.noDevices));
-            // }
-        }, 3000);
+        }, 30000);
     });
 }
 
