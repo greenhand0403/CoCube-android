@@ -1697,12 +1697,16 @@ async function GP_writeFile(data, fName, id) {
 			const dataToWrite = typeof data === 'string' ? data : btoa(String.fromCharCode(...new Uint8Array(data)));
 
 			// 4. 保存文件到 Documents/CoCube 目录
-			await Filesystem.writeFile({
+			const writeOptions = {
 				path: fullPath,
 				data: dataToWrite,
-				directory: 'DOCUMENTS',
-				encoding: typeof data === 'string' ? 'utf8' : 'base64'
-			});
+				directory: 'DOCUMENTS'
+			};
+			if (typeof data === 'string') {
+				writeOptions.encoding = 'utf8';
+			}
+
+			await Filesystem.writeFile(writeOptions);
 
 			GP.lastSavedFileName = fileName;
 			console.log('File saved to:', fullPath);

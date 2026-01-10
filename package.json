@@ -17,6 +17,7 @@
   "dependencies": {
     "@capacitor-community/bluetooth-le": "^6.0.2",
     "@capacitor/android": "^6.1.2",
+    "@capacitor/app": "^6.0.3",
     "@capacitor/camera": "latest",
     "@capacitor/core": "latest",
     "@capacitor/filesystem": "^6.0.0",
