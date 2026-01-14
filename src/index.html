@@ -116,10 +116,23 @@
 		// Force HTTPS. Otherwise WebSerial can't be accessed.
 		// if (location.protocol === 'http:') { location.protocol = 'https:'; }
 
-        // 默认添加 hash 参数
-        if (!window.location.hash || window.location.hash === '') {
-            window.location.hash = 'scripts=GP%20Scripts%0Adepends%20%27CoCube%27';
-		}
+		// 默认添加 hash 参数（如果用户之前没有选择"否"）
+		(function() {
+			try {
+				const storedChoice = localStorage.getItem('cocube-device-choice');
+				// 只有当用户明确选择"否"时才不添加 hash
+				if (storedChoice !== 'no') {
+					if (!window.location.hash || window.location.hash === '') {
+						window.location.hash = 'scripts=GP%20Scripts%0Adepends%20%27CoCube%27';
+					}
+				}
+			} catch (e) {
+				// 如果无法访问 localStorage，默认添加 hash
+				if (!window.location.hash || window.location.hash === '') {
+					window.location.hash = 'scripts=GP%20Scripts%0Adepends%20%27CoCube%27';
+				}
+			}
+		})();
 
 		// Auto-detect language from browser and set preferences
 		(function() {
@@ -205,6 +218,18 @@
 		<script type="text/javascript" src="gp_wasm.js"></script>
     <script type="module" src="./appload.js"></script>
     <script type="module" src="./moreFeaturesBtn.js"></script>
+
+	<!-- CoCube 设备选择提示 -->
+	<script type="module">
+		import { checkAndPromptCoCube } from './cocubePrompt.js';
+		// 等待页面和所有资源完全加载
+		window.addEventListener('load', () => {
+			// 再延迟一段时间,确保 MicroBlocks 完全初始化
+			setTimeout(() => {
+				checkAndPromptCoCube();
+			}, 2500);
+		});
+	</script>
 
 	<!-- 检查更新 -->
 	<script type="module">

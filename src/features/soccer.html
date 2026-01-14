@@ -34,7 +34,11 @@
                 dialogTitle: '提示',
                 dialogMessage: '检测到当前未运行足球程序，是否立即下载？',
                 cancel: '取消',
-                confirm: '下载'
+                confirm: '下载',
+                buttonX: 'X：夹爪张开',
+                buttonY: 'Y：夹爪闭合',
+                buttonA: 'A：颜色切换',
+                buttonB: 'B：图案切换'
             },
             en: {
                 title: '⚽ Soccer Battle',
@@ -50,7 +54,11 @@
                 dialogTitle: 'Notice',
                 dialogMessage: 'Current program is not Soccer, download now?',
                 cancel: 'Cancel',
-                confirm: 'Download'
+                confirm: 'Download',
+                buttonX: 'X: Open Gripper',
+                buttonY: 'Y: Close Gripper',
+                buttonA: 'A: Switch Color',
+                buttonB: 'B: Switch Pattern'
             }
         };
 
@@ -274,6 +282,24 @@
             align-items: center;
             justify-content: space-between;
             padding: 20px;
+        }
+
+        /* 中央按钮说明 */
+        .button-hints {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: #999;
+            font-size: 14px;
+            line-height: 2;
+            text-align: center;
+            pointer-events: none;
+            user-select: none;
+        }
+
+        .button-hints div {
+            margin: 8px 0;
         }
 
         /* 摇杆容器 */
@@ -541,6 +567,14 @@
             </div>
         </div>
 
+        <!-- 中央按钮说明 -->
+        <div class="button-hints" id="buttonHints">
+            <div id="hintX"></div>
+            <div id="hintY"></div>
+            <div id="hintA"></div>
+            <div id="hintB"></div>
+        </div>
+
         <!-- 右侧按钮 -->
         <div class="buttons-container">
             <button class="action-btn btn-y" id="btnY">Y</button>
@@ -589,6 +623,12 @@
         const joystickHandle = document.getElementById('joystickHandle');
         const pageTitle = document.getElementById('pageTitle');
 
+        // 按钮说明元素
+        const hintX = document.getElementById('hintX');
+        const hintY = document.getElementById('hintY');
+        const hintA = document.getElementById('hintA');
+        const hintB = document.getElementById('hintB');
+
         // 弹窗元素
         const downloadDialog = document.getElementById('downloadDialog');
         const dialogTitle = document.getElementById('dialogTitle');
@@ -600,6 +640,12 @@
         pageTitle.textContent = t.title;
         statusText.textContent = t.notConnected;
         // connectBtn.textContent = t.connect; // 移除
+
+        // 初始化按钮说明文本
+        hintX.textContent = t.buttonX;
+        hintY.textContent = t.buttonY;
+        hintA.textContent = t.buttonA;
+        hintB.textContent = t.buttonB;
 
         // 初始化弹窗文本
         dialogTitle.textContent = t.dialogTitle;
