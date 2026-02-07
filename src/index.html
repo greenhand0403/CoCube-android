@@ -1,133 +1,170 @@
 <!doctype html>
 <html lang="en-us">
-	<head>
-    <meta charset="UTF-8" />
-		<title>MicroBlocks</title>
-    <meta
-      name="viewport"
-      content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"
-    />
-    <meta name="format-detection" content="telephone=no" />
-    <meta name="msapplication-tap-highlight" content="no" />
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="mobile-web-app-capable" content="yes">
 
-		<link rel="manifest" href="manifest.json">
-		<link rel="icon" href="favicon.ico" type="image/x-icon" />
-		<link rel="apple-touch-icon" href="icons/Bunny512.png">
-		<meta name="theme-color" content="white"/>
-		<meta name="apple-mobile-web-app-capable" content="yes">
-		<meta name="apple-mobile-web-app-status-bar-style" content="black">
-		<meta name="apple-mobile-web-app-title" content="MicroBlocks">
-		<meta name="msapplication-TileImage" content="icons/Bunny192.png">
-		<meta name="msapplication-TileColor" content="#FFFFFF">
+<head>
+	<meta charset="UTF-8" />
+	<title>MicroBlocks</title>
+	<meta name="viewport"
+		content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<meta name="format-detection" content="telephone=no" />
+	<meta name="msapplication-tap-highlight" content="no" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
 
-    <link rel="stylesheet" href="./css/style.css" />
+	<link rel="manifest" href="manifest.json">
+	<link rel="icon" href="favicon.ico" type="image/x-icon" />
+	<link rel="apple-touch-icon" href="icons/Bunny512.png">
+	<meta name="theme-color" content="white" />
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="apple-mobile-web-app-title" content="MicroBlocks">
+	<meta name="msapplication-TileImage" content="icons/Bunny192.png">
+	<meta name="msapplication-TileColor" content="#FFFFFF">
 
-		<style>
-			body {
-				font-family: arial;
-				margin: 0;
-				overflow: hidden;
+	<link rel="stylesheet" href="./css/style.css" />
+
+	<style>
+		body {
+			font-family: arial;
+			margin: 0;
+			overflow: hidden;
+		}
+
+		.emscripten {
+			padding-right: 0;
+			margin-left: auto;
+			margin-right: auto;
+			display: block;
+		}
+
+		div.emscripten {
+			text-align: center;
+		}
+
+		/* the canvas *must not* have any border or padding, or mouse coords will be wrong */
+		canvas.emscripten {
+			border: 0px none;
+			margin-left: 0px;
+			margin-top: -18px
+		}
+
+		.spinner {
+			height: 30px;
+			width: 30px;
+			margin: 0;
+			margin-top: 5px;
+			margin-left: 20px;
+			display: inline-block;
+			vertical-align: top;
+
+			-webkit-animation: rotation .8s linear infinite;
+			-moz-animation: rotation .8s linear infinite;
+			-o-animation: rotation .8s linear infinite;
+			animation: rotation 0.8s linear infinite;
+
+			border-left: 5px solid rgb(235, 235, 235);
+			border-right: 5px solid rgb(235, 235, 235);
+			border-bottom: 5px solid rgb(235, 235, 235);
+			border-top: 5px solid rgb(120, 120, 120);
+
+			border-radius: 100%;
+			background-color: rgb(189, 215, 46);
+		}
+
+		@-webkit-keyframes rotation {
+			from {
+				-webkit-transform: rotate(0deg);
 			}
 
-			.emscripten { padding-right: 0; margin-left: auto; margin-right: auto; display: block; }
-			div.emscripten { text-align: center; }
-			/* the canvas *must not* have any border or padding, or mouse coords will be wrong */
-			canvas.emscripten { border: 0px none; margin-left: 0px; margin-top: -18px }
+			to {
+				-webkit-transform: rotate(360deg);
+			}
+		}
 
-			.spinner {
-				height: 30px;
-				width: 30px;
-				margin: 0;
-				margin-top: 5px;
-				margin-left: 20px;
-				display: inline-block;
-				vertical-align: top;
-
-				-webkit-animation: rotation .8s linear infinite;
-				-moz-animation: rotation .8s linear infinite;
-				-o-animation: rotation .8s linear infinite;
-				animation: rotation 0.8s linear infinite;
-
-				border-left: 5px solid rgb(235, 235, 235);
-				border-right: 5px solid rgb(235, 235, 235);
-				border-bottom: 5px solid rgb(235, 235, 235);
-				border-top: 5px solid rgb(120, 120, 120);
-
-				border-radius: 100%;
-				background-color: rgb(189, 215, 46);
+		@-moz-keyframes rotation {
+			from {
+				-moz-transform: rotate(0deg);
 			}
 
-			@-webkit-keyframes rotation {
-				from {-webkit-transform: rotate(0deg);}
-				to {-webkit-transform: rotate(360deg);}
+			to {
+				-moz-transform: rotate(360deg);
 			}
-			@-moz-keyframes rotation {
-				from {-moz-transform: rotate(0deg);}
-				to {-moz-transform: rotate(360deg);}
-			}
-			@-o-keyframes rotation {
-				from {-o-transform: rotate(0deg);}
-				to {-o-transform: rotate(360deg);}
-			}
-			@keyframes rotation {
-				from {transform: rotate(0deg);}
-				to {transform: rotate(360deg);}
+		}
+
+		@-o-keyframes rotation {
+			from {
+				-o-transform: rotate(0deg);
 			}
 
-			#status {
-				display: inline-block;
-				vertical-align: top;
-				margin-left: 15px;
-				font-weight: bold;
-				color: rgb(120, 120, 120);
+			to {
+				-o-transform: rotate(360deg);
+			}
+		}
+
+		@keyframes rotation {
+			from {
+				transform: rotate(0deg);
 			}
 
-			#progress {
-				height: 20px;
-				width: 30px;
+			to {
+				transform: rotate(360deg);
 			}
+		}
 
-			#controls {
-				display: inline-block;
-				float: left;
-				vertical-align: top;
-				margin-top: 5px;
-				margin-bottom: 7px;
-				margin-left: 5px;
-			}
+		#status {
+			display: inline-block;
+			vertical-align: top;
+			margin-left: 15px;
+			font-weight: bold;
+			color: rgb(120, 120, 120);
+		}
 
-			#output {
-				width: 100%;
-				height: 200px;
-				margin: 0 auto;
-				margin-top: 10px;
-				display: block;
-				background-color: black;
-				color: white;
-				font-family: 'Lucida Console', Monaco, monospace;
-				outline: none;
-			}
-		</style>
-	</head>
-	<body>
+		#progress {
+			height: 20px;
+			width: 30px;
+		}
+
+		#controls {
+			display: inline-block;
+			float: left;
+			vertical-align: top;
+			margin-top: 5px;
+			margin-bottom: 7px;
+			margin-left: 5px;
+		}
+
+		#output {
+			width: 100%;
+			height: 200px;
+			margin: 0 auto;
+			margin-top: 10px;
+			display: block;
+			background-color: black;
+			color: white;
+			font-family: 'Lucida Console', Monaco, monospace;
+			outline: none;
+		}
+	</style>
+</head>
+
+<body>
 	<script>
 		// Force HTTPS. Otherwise WebSerial can't be accessed.
 		// if (location.protocol === 'http:') { location.protocol = 'https:'; }
 
 		// 默认添加 hash 参数（如果用户之前没有选择"否"）
-		(function() {
+		(function () {
 			try {
 				const storedChoice = localStorage.getItem('cocube-device-choice');
-				// 只有当用户明确选择"否"时才不添加 hash
-				if (storedChoice !== 'no') {
+				const sessionChoice = sessionStorage.getItem('cocube-session-choice');
+				// 只有当用户明确选择"否"时才不添加 hash（检查永久存储和会话存储）
+				if (storedChoice !== 'no' && sessionChoice !== 'no') {
 					if (!window.location.hash || window.location.hash === '') {
 						window.location.hash = 'scripts=GP%20Scripts%0Adepends%20%27CoCube%27';
 					}
 				}
 			} catch (e) {
-				// 如果无法访问 localStorage，默认添加 hash
+				// 如果无法访问 storage，默认添加 hash
 				if (!window.location.hash || window.location.hash === '') {
 					window.location.hash = 'scripts=GP%20Scripts%0Adepends%20%27CoCube%27';
 				}
@@ -135,7 +172,7 @@
 		})();
 
 		// Auto-detect language from browser and set preferences
-		(function() {
+		(function () {
 			// Check if language preference already exists
 			var prefs = {};
 			try {
@@ -144,7 +181,7 @@
 					prefs = JSON.parse(existingPrefs);
 					if (prefs.locale) return; // Already set
 				}
-			} catch (e) {}
+			} catch (e) { }
 
 			// Language mapping based on AuthoringSpecs.gp
 			var langMap = {
@@ -163,7 +200,7 @@
 			// Handle Chinese and Portuguese variants
 			if (browserLang === 'zh') {
 				var fullLang = navigator.language.toLowerCase();
-				detectedLang = (fullLang.includes('tw') || fullLang.includes('hk') || fullLang.includes('hant')) 
+				detectedLang = (fullLang.includes('tw') || fullLang.includes('hk') || fullLang.includes('hant'))
 					? 'zh-cht' : 'zh-chs';
 			} else if (browserLang === 'pt') {
 				detectedLang = navigator.language.toLowerCase().includes('br') ? 'pt-br' : 'pt';
@@ -188,36 +225,55 @@
 		<input type="file" id="FileUploader" multiple style="display:none">
 	</span>
 
-		<div class="spinner" id='spinner'></div>
-		<div class="emscripten" id="status">Downloading...</div>
+	<div class="spinner" id='spinner'></div>
+	<div class="emscripten" id="status">Downloading...</div>
 
-		<div class="emscripten">
-			<progress value="0" max="100" id="progress" hidden=1></progress>
-		</div>
+	<div class="emscripten">
+		<progress value="0" max="100" id="progress" hidden=1></progress>
+	</div>
 
-		<div class="emscripten">
-			<canvas class="emscripten" id="canvas" width="100px" height="100px"></canvas>
-		</div>
+	<div class="emscripten">
+		<canvas class="emscripten" id="canvas" width="100px" height="100px"></canvas>
+	</div>
 
-    <!-- 添加这个悬浮按钮 -->
-  <button id="moreFeaturesBtn" class="more-features-btn" aria-label="更多功能" data-href="features.html">
-    <svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
-      <circle cx="12" cy="5" r="2"/>
-      <circle cx="12" cy="12" r="2"/>
-      <circle cx="12" cy="19" r="2"/>
-    </svg>
-  </button>
+	<!-- 添加这个悬浮按钮 -->
+	<button id="moreFeaturesBtn" class="more-features-btn" aria-label="更多功能" data-href="features.html">
+		<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true">
+			<circle cx="12" cy="5" r="2" />
+			<circle cx="12" cy="12" r="2" />
+			<circle cx="12" cy="19" r="2" />
+		</svg>
+	</button>
 
-    <capacitor-welcome></capacitor-welcome>
+	<capacitor-welcome></capacitor-welcome>
 
-    <script type="module" src="capacitorBLE.js"></script>
-		<script type="text/javascript" src="emModule.js"></script>
-		<script type="text/javascript" src="gpSupport.js"></script>
-    <script type="text/javascript" src="microblocksCN.js"></script>
-		<script type="text/javascript" src="FileSaver.js"></script>
-		<script type="text/javascript" src="gp_wasm.js"></script>
-    <script type="module" src="./appload.js"></script>
-    <script type="module" src="./moreFeaturesBtn.js"></script>
+	<script type="module" src="capacitorBLE.js"></script>
+	<script type="text/javascript" src="emModule.js"></script>
+	<script type="text/javascript" src="gpSupport.js"></script>
+	<script type="text/javascript" src="microblocksCN.js"></script>
+	<script type="text/javascript" src="FileSaver.js"></script>
+	<script type="text/javascript" src="gp_wasm.js"></script>
+	<script type="module" src="./appload.js"></script>
+	<script>
+		// 如果用户选择不使用 CoCube，隐藏"更多功能"按钮
+		(function () {
+			function hideMoreFeaturesBtn() {
+				try {
+					const storedChoice = localStorage.getItem('cocube-device-choice');
+					const sessionChoice = sessionStorage.getItem('cocube-session-choice');
+					if (storedChoice === 'no' || sessionChoice === 'no') {
+						var btn = document.getElementById('moreFeaturesBtn');
+						if (btn) btn.style.cssText = 'display: none !important';
+					}
+				} catch (e) { }
+			}
+			// 立即执行一次
+			hideMoreFeaturesBtn();
+			// DOM 加载完成后再执行一次
+			document.addEventListener('DOMContentLoaded', hideMoreFeaturesBtn);
+		})();
+	</script>
+	<script type="module" src="./moreFeaturesBtn.js"></script>
 
 	<!-- CoCube 设备选择提示 -->
 	<script type="module">
@@ -227,7 +283,7 @@
 			// 再延迟一段时间,确保 MicroBlocks 完全初始化
 			setTimeout(() => {
 				checkAndPromptCoCube();
-			}, 2500);
+			}, 3500);
 		});
 	</script>
 
@@ -238,5 +294,76 @@
 			setTimeout(() => checkUpdate(), 1200);
 		});
 	</script>
-	</body>
+
+	<!-- Android 返回按钮处理 -->
+	<script type="module">
+		import { App } from '@capacitor/app';
+		import { Haptics, ImpactStyle } from '@capacitor/haptics';
+
+		let lastBackPress = 0;
+		const DOUBLE_PRESS_INTERVAL = 2000; // 2秒内双击退出
+
+		// 语言检测
+		const lang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+		const isZh = lang.startsWith('zh');
+		const exitHintText = isZh ? '再按一次退出应用' : 'Press back again to exit';
+
+		// 显示简单的退出提示
+		function showExitHint() {
+			// 创建一个简单的提示元素
+			let hint = document.getElementById('exitHint');
+			if (!hint) {
+				hint = document.createElement('div');
+				hint.id = 'exitHint';
+				hint.style.cssText = `
+					position: fixed;
+					bottom: 50px;
+					left: 50%;
+					transform: translateX(-50%);
+					background: rgba(0, 0, 0, 0.7);
+					color: white;
+					padding: 12px 24px;
+					border-radius: 8px;
+					font-size: 14px;
+					z-index: 99999;
+					pointer-events: none;
+					opacity: 0;
+					transition: opacity 0.3s;
+				`;
+				document.body.appendChild(hint);
+			}
+			hint.textContent = exitHintText;
+			hint.style.opacity = '1';
+			setTimeout(() => {
+				hint.style.opacity = '0';
+			}, 1500);
+		}
+
+		// 监听 Android 返回按钮事件
+		App.addListener('backButton', async ({ canGoBack }) => {
+			// 检查是否有模态窗口打开
+			if (window.modalNavigator && window.modalNavigator.isModalOpen()) {
+				// 使用分级返回（先返回上一页，没有历史时关闭模态窗口）
+				window.modalNavigator.goBack();
+			} else {
+				// 在主页面，双击退出
+				const now = Date.now();
+				if (now - lastBackPress < DOUBLE_PRESS_INTERVAL) {
+					// 第二次按返回，退出应用
+					App.exitApp();
+				} else {
+					// 第一次按返回，显示提示并触发触觉反馈
+					lastBackPress = now;
+					showExitHint();
+					try {
+						await Haptics.impact({ style: ImpactStyle.Light });
+					} catch (e) {
+						// 忽略错误
+					}
+				}
+			}
+		});
+	</script>
+</body>
+
 </html>

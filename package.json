@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "start": "vite",
-    "prebuild": "cp /Users/mac/Documents/pjlab/cocube/mb_official/smallvm_mobile/chromeApp/webapp/gp_wasm.{data,js,wasm} ./src/",
+    "prebuild": "cp /Users/mac/Documents/pjlab/cocube/mb_official/smallvm_mobile/chromeApp/webapp/gp_wasm.{data,js,wasm} ./src/ && cp -r /Users/mac/Documents/pjlab/cocube/mb_official/smallvm_mobile/chromeApp/webapp/boardie src",
     "build": "vite build",
     "preview": "vite preview"
   },

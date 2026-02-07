@@ -90,7 +90,7 @@ class ModalNavigator {
         // 尝试获取 iframe 标题
         const iframeDoc = this.iframe.contentDocument || this.iframe.contentWindow.document;
         title.textContent = iframeDoc.title || '功能页面';
-        
+
         // 注入返回监听器到 iframe
         this.injectBackListener(this.iframe.contentWindow);
       } catch (e) {
@@ -110,7 +110,7 @@ class ModalNavigator {
   setupBeforeUnloadHandler() {
     // 保存原始的 beforeunload 处理器
     const originalBeforeUnload = window.onbeforeunload;
-    
+
     window.onbeforeunload = (e) => {
       // 如果模态窗口打开中，不显示警告
       if (this.isOpen) {
@@ -125,20 +125,20 @@ class ModalNavigator {
     try {
       // 在 iframe 中注入返回功能
       const iframeDoc = iframeWindow.document;
-      
+
       // 拦截 iframe 中的 window.location.href 设置
       const originalLocationHref = iframeWindow.location.href;
-      
+
       // 监听 iframe 中的返回按钮点击
       iframeDoc.addEventListener('click', (e) => {
         const target = e.target.closest('button, a');
         if (!target) return;
-        
+
         // 检测返回操作
-        const isBackButton = 
+        const isBackButton =
           target.classList.contains('back-btn') ||
           target.getAttribute('onclick')?.includes('index.html');
-        
+
         if (isBackButton) {
           e.preventDefault();
           e.stopPropagation();
@@ -152,26 +152,50 @@ class ModalNavigator {
 
   open(url) {
     if (!this.modal) this.init();
-    
+
+    // 记录当前 iframe 的 URL 到历史（用于分级返回）
+    if (this.isOpen && this.iframe.src && this.iframe.src !== 'about:blank') {
+      // 提取相对路径
+      const currentUrl = this.iframe.src;
+      if (!this.urlHistory) this.urlHistory = [];
+      this.urlHistory.push(currentUrl);
+    }
+
     this.history.push(window.location.href);
     this.iframe.src = url;
     this.modal.style.display = 'flex';
     this.isOpen = true;
-    
+
     // 隐藏主页面的滚动条
     document.body.style.overflow = 'hidden';
   }
 
+  // 返回上一级页面（分级返回）
+  goBack() {
+    if (!this.modal) return false;
+
+    // 如果有历史记录，返回上一级
+    if (this.urlHistory && this.urlHistory.length > 0) {
+      const previousUrl = this.urlHistory.pop();
+      this.iframe.src = previousUrl;
+      return true;
+    }
+
+    // 没有历史记录，关闭模态窗口
+    this.close();
+    return false;
+  }
+
   close() {
     if (!this.modal) return;
-    
+
     this.modal.style.display = 'none';
     this.isOpen = false;
     this.iframe.src = 'about:blank';
-    
+
     // 恢复主页面的滚动
     document.body.style.overflow = '';
-    
+
     // 清空历史
     this.history = [];
 
