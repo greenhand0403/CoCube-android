@@ -191,7 +191,7 @@ const getAllCode = (serialPort) =>
   sendShortMsg(serialPort, OPCODES.GET_ALL_CODE, 1);
 
 const deleteAllCode = (serialPort) => 
-  sendShortMsg(serialPort, OPCODES.DELETE_ALL_CODE, 0);
+  sendShortMsg(serialPort, OPCODES.DELETE_ALL_CODE, 1);
 
 const systemReset = (serialPort) => 
   sendShortMsg(serialPort, OPCODES.SYSTEM_RESET, 0);
@@ -275,7 +275,15 @@ async function sendByteList(bleSerial, byteLists, progressCallback) {
 
     while (!success) {
       try {
-        await sendChunkCode(bleSerial, i, byteList);
+        if (byteList[0] === 0xFB) {
+            const chunkID = byteList[2];
+            const size = byteList[3] | (byteList[4] << 8);
+            const data = byteList.slice(5, 5 + size);
+            await sendChunkCode(bleSerial, chunkID, data);
+        }
+        else{
+          await sendChunkCode(bleSerial, i, byteList);
+        }
         console.log(`Sent chunk ${i}/${total}`);
 
         // success = await waitForAcknowledgment(bleSerial);
