@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "start": "vite",
-    "prebuild": "cp /d/zwc/work/smallvm-CN/smallvm/chromeApp/MicroBlocks/gp_wasm.{data,js,wasm} ./src/ && cp -r /d/zwc/work/smallvm-CN/smallvm/chromeApp/webapp/boardie src",
+    "prebuild": "cp /d/zwc/work/smallvm/chromeApp/MicroBlocks/gp_wasm.{data,js,wasm} ./src/ && cp -r /d/zwc/work/smallvm/chromeApp/webapp/boardie src",
     "build": "vite build",
     "preview": "vite preview"
   },
