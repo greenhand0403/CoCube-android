@@ -8,6 +8,13 @@ src\ gp_wasm.data gp_wasm.wasm gp_wasm.js
 
 修改图标和 APP 名称需要在 Android studio 中进行
 
+输出 app 安装包，可以去 android 目录下执行 `./gradlew assembleDebug`
+
+报错的话，强制切换一下 Java 版本
+
+在 `android/gradle.properties` 中添加一行配置信息
+`org.gradle.java.home=D:\\zwc\\app\\Androidstudio\\jbr`
+
 ## CoCube Android App for Tablet
 
 This app was created using [`@capacitor/create-app`](https://github.com/ionic-team/create-capacitor-app),  

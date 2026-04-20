@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.cocuberobot.mb",
+  "applicationId": "com.microblocks.mb",
   "variantName": "release",
   "elements": [
     {

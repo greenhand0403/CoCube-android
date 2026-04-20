@@ -22,9 +22,9 @@ public class MainActivity extends BridgeActivity {
 
         // 设置全屏模式，隐藏导航栏和状态栏
         getWindow().getDecorView().setSystemUiVisibility(
-            View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-            | View.SYSTEM_UI_FLAG_FULLSCREEN
-            | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
         );
     }
 
@@ -44,8 +44,8 @@ public class MainActivity extends BridgeActivity {
     private boolean isTabletAlternative() {
         int screenLayout = getResources().getConfiguration().screenLayout;
         screenLayout &= Configuration.SCREENLAYOUT_SIZE_MASK;
-        
+
         return screenLayout == Configuration.SCREENLAYOUT_SIZE_LARGE ||
-               screenLayout == Configuration.SCREENLAYOUT_SIZE_XLARGE;
+                screenLayout == Configuration.SCREENLAYOUT_SIZE_XLARGE;
     }
 }
