@@ -1,10 +1,10 @@
 apply plugin: 'com.android.application'
 
 android {
-    namespace "com.cocuberobot.mb"
+    namespace "com.microblocks.mb"
     compileSdk rootProject.ext.compileSdkVersion
     defaultConfig {
-        applicationId "com.cocuberobot.mb"
+        applicationId "com.microblocks.mb"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 19
