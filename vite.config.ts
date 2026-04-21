@@ -11,10 +11,6 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: './src/index.html',
-        features: './src/features.html',
-        soccer: './src/features/soccer.html',
-        cargo: './src/features/cargo.html',
-        track: './src/features/track.html'
       }
     }
   },
@@ -74,16 +70,6 @@ export default defineConfig({
         console.log('Boardie directory copied successfully');
       } catch (err) {
         console.error('Error copying boardie directory:', err);
-      }
-
-      // copy features directory
-      const srcFeaturesDir = resolve(__dirname, 'src/features');
-      const destFeaturesDir = resolve(__dirname, 'dist/features');
-      try {
-        copyDir(srcFeaturesDir, destFeaturesDir);
-        console.log('Features directory copied successfully');
-      } catch (err) {
-        console.error('Error copying features directory:', err);
       }
     }
   }]
