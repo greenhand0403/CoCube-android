@@ -1665,7 +1665,7 @@ async function GP_writeFile(data, fName, id) {
 				inputPrompt: isChinese ? '请输入文件名：' : 'Enter file name:',
 				cancelSave: isChinese ? '用户取消保存' : 'User cancelled save',
 				folderCreated: isChinese ? '文件夹已创建或已存在' : 'Folder created or already exists',
-				saveSuccess: isChinese ? '文件已保存到 Documents/CoCube/' : 'File saved to Documents/CoCube/',
+				saveSuccess: isChinese ? '文件已保存到 Documents/Microblocks/' : 'File saved to Documents/Microblocks/',
 				saveError: isChinese ? '保存文件失败: ' : 'Failed to save file: '
 			};
 
@@ -1677,10 +1677,10 @@ async function GP_writeFile(data, fName, id) {
 			}
 
 			const fileName = userFileName + '.' + ext;
-			const folderPath = 'CoCube';
+			const folderPath = 'Microblocks';
 			const fullPath = folderPath + '/' + fileName;
 
-			// 2. 检查并创建 CoCube 文件夹
+			// 2. 检查并创建 Microblocks 文件夹
 			try {
 				await Filesystem.mkdir({
 					path: folderPath,
@@ -1696,7 +1696,7 @@ async function GP_writeFile(data, fName, id) {
 			// 3. 转换数据格式
 			const dataToWrite = typeof data === 'string' ? data : btoa(String.fromCharCode(...new Uint8Array(data)));
 
-			// 4. 保存文件到 Documents/CoCube 目录
+			// 4. 保存文件到 Documents/Microblocks 目录
 			const writeOptions = {
 				path: fullPath,
 				data: dataToWrite,

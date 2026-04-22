@@ -149,27 +149,6 @@
 
 <body>
 	<script>
-		// Force HTTPS. Otherwise WebSerial can't be accessed.
-		// if (location.protocol === 'http:') { location.protocol = 'https:'; }
-
-		// 默认添加 hash 参数（如果用户之前没有选择"否"）
-		// (function () {
-		// 	try {
-		// 		const storedChoice = localStorage.getItem('cocube-device-choice');
-		// 		const sessionChoice = sessionStorage.getItem('cocube-session-choice');
-		// 		// 只有当用户明确选择"否"时才不添加 hash（检查永久存储和会话存储）
-		// 		if (storedChoice !== 'no' && sessionChoice !== 'no') {
-		// 			if (!window.location.hash || window.location.hash === '') {
-		// 				window.location.hash = 'scripts=GP%20Scripts%0Adepends%20%27CoCube%27';
-		// 			}
-		// 		}
-		// 	} catch (e) {
-		// 		// 如果无法访问 storage，默认添加 hash
-		// 		if (!window.location.hash || window.location.hash === '') {
-		// 			window.location.hash = 'scripts=GP%20Scripts%0Adepends%20%27CoCube%27';
-		// 		}
-		// 	}
-		// })();
 
 		// Auto-detect language from browser and set preferences
 		(function () {
@@ -254,46 +233,6 @@
 	<script type="text/javascript" src="FileSaver.js"></script>
 	<script type="text/javascript" src="gp_wasm.js"></script>
 	<script type="module" src="./appload.js"></script>
-	<!-- <script>
-		// 如果用户选择不使用 CoCube，隐藏"更多功能"按钮
-		(function () {
-			function hideMoreFeaturesBtn() {
-				try {
-					const storedChoice = localStorage.getItem('cocube-device-choice');
-					const sessionChoice = sessionStorage.getItem('cocube-session-choice');
-					if (storedChoice === 'no' || sessionChoice === 'no') {
-						var btn = document.getElementById('moreFeaturesBtn');
-						if (btn) btn.style.cssText = 'display: none !important';
-					}
-				} catch (e) { }
-			}
-			// 立即执行一次
-			hideMoreFeaturesBtn();
-			// DOM 加载完成后再执行一次
-			document.addEventListener('DOMContentLoaded', hideMoreFeaturesBtn);
-		})();
-	</script> -->
-	<!-- <script type="module" src="./moreFeaturesBtn.js"></script> -->
-
-	<!-- CoCube 设备选择提示 -->
-	<!-- <script type="module">
-		import { checkAndPromptCoCube } from './cocubePrompt.js';
-		// 等待页面和所有资源完全加载
-		window.addEventListener('load', () => {
-			// 再延迟一段时间,确保 MicroBlocks 完全初始化
-			setTimeout(() => {
-				checkAndPromptCoCube();
-			}, 3500);
-		});
-	</script> -->
-
-	<!-- 检查更新 -->
-	<!-- <script type="module">
-		import { checkUpdate } from './updateChecker.js';
-		window.addEventListener('DOMContentLoaded', () => {
-			setTimeout(() => checkUpdate(), 1200);
-		});
-	</script> -->
 
 	<!-- Android 返回按钮处理 -->
 	<script type="module">
