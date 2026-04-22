@@ -10,7 +10,6 @@
   ],
   "scripts": {
     "start": "vite",
-    "prebuild": "cp /d/zwc/work/smallvm/chromeApp/MicroBlocks/gp_wasm.{data,js,wasm} ./src/ && cp -r /d/zwc/work/smallvm/chromeApp/webapp/boardie src",
     "build": "vite build",
     "preview": "vite preview"
   },
@@ -22,13 +21,13 @@
     "@capacitor/core": "latest",
     "@capacitor/filesystem": "^6.0.0",
     "@capacitor/haptics": "^6.0.3",
-    "@capacitor/ios": "^6.1.2",
+    "@capacitor/ios": "^6.2.1",
     "@capacitor/splash-screen": "latest",
     "@capacitor/status-bar": "^6.0.1"
   },
   "devDependencies": {
     "@capacitor/cli": "latest",
-    "vite": "^5.4.2"
+    "vite": "^5.4.21"
   },
   "author": "",
   "license": "ISC"
