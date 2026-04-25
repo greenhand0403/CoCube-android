@@ -1577,7 +1577,118 @@ if (typeof window.Capacitor !== 'undefined') {
 function hasChromeFilesystem() {
 	return ((typeof chrome != 'undefined') && (typeof chrome.fileSystem != 'undefined'))
 }
+function showCapacitorFilePicker(fileNames, ext) {
+	return new Promise((resolve) => {
+		const isChinese = navigator.language.toLowerCase().startsWith('zh');
 
+		const overlay = document.createElement('div');
+		overlay.style.cssText = `
+			position: fixed;
+			left: 0;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			background: rgba(0, 0, 0, 0.45);
+			z-index: 999999;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-family: Arial, sans-serif;
+		`;
+
+		const panel = document.createElement('div');
+		panel.style.cssText = `
+			width: min(520px, 88vw);
+			max-height: 72vh;
+			background: white;
+			border-radius: 14px;
+			box-shadow: 0 12px 40px rgba(0,0,0,0.25);
+			overflow: hidden;
+			display: flex;
+			flex-direction: column;
+		`;
+
+		const header = document.createElement('div');
+		header.style.cssText = `
+			padding: 16px 18px;
+			font-size: 18px;
+			font-weight: bold;
+			border-bottom: 1px solid #e5e5e5;
+			color: #222;
+		`;
+		header.textContent = isChinese ? `选择 .${ext} 文件` : `Choose .${ext} file`;
+
+		const list = document.createElement('div');
+		list.style.cssText = `
+			overflow-y: auto;
+			max-height: 60vh;
+			-webkit-overflow-scrolling: touch;
+		`;
+
+		fileNames.forEach((name) => {
+			const item = document.createElement('button');
+			item.type = 'button';
+			item.textContent = name;
+			item.style.cssText = `
+				width: 100%;
+				min-height: 48px;
+				display: block;
+				text-align: left;
+				padding: 14px 18px;
+				font-size: 16px;
+				background: white;
+				border: none;
+				border-bottom: 1px solid #f0f0f0;
+				color: #222;
+				white-space: nowrap;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				-webkit-tap-highlight-color: transparent;
+			`;
+
+			item.onclick = () => {
+				document.body.removeChild(overlay);
+				resolve(name);
+			};
+
+			list.appendChild(item);
+		});
+
+		const footer = document.createElement('div');
+		footer.style.cssText = `
+			padding: 12px;
+			border-top: 1px solid #e5e5e5;
+			display: flex;
+			justify-content: flex-end;
+			background: #fafafa;
+		`;
+
+		const cancel = document.createElement('button');
+		cancel.type = 'button';
+		cancel.textContent = isChinese ? '取消' : 'Cancel';
+		cancel.style.cssText = `
+			padding: 10px 18px;
+			font-size: 16px;
+			border: none;
+			border-radius: 8px;
+			background: #eee;
+			color: #333;
+		`;
+
+		cancel.onclick = () => {
+			document.body.removeChild(overlay);
+			resolve(null);
+		};
+
+		footer.appendChild(cancel);
+
+		panel.appendChild(header);
+		panel.appendChild(list);
+		panel.appendChild(footer);
+		overlay.appendChild(panel);
+		document.body.appendChild(overlay);
+	});
+}
 async function GP_ReadFile(ext) {
 	// Upload using Native File API.
 
@@ -1591,6 +1702,55 @@ async function GP_ReadFile(ext) {
 			};
 			reader.readAsArrayBuffer(file);
 		});
+	}
+
+	// Capacitor / iOS / Android: read from Documents/Microblocks
+	if (typeof window.Capacitor !== 'undefined' && window.Capacitor.isNativePlatform()) {
+		try {
+			const { Filesystem } = window.Capacitor.Plugins;
+
+			if ('' == ext) ext = 'ubp';
+
+			const folderPath = 'Microblocks';
+
+			const result = await Filesystem.readdir({
+				path: folderPath,
+				directory: 'DOCUMENTS'
+			});
+
+			const fileNames = result.files
+				.map(f => typeof f === 'string' ? f : f.name)
+				.filter(name => name && name.toLowerCase().endsWith('.' + ext.toLowerCase()));
+
+			if (fileNames.length === 0) {
+				alert('没有找到 .' + ext + ' 文件');
+				return;
+			}
+
+			const fileName = await showCapacitorFilePicker(fileNames, ext);
+			if (!fileName) return;
+
+			const readResult = await Filesystem.readFile({
+				path: folderPath + '/' + fileName,
+				directory: 'DOCUMENTS',
+				encoding: 'utf8'
+			});
+
+			const contents = new TextEncoder().encode(readResult.data).buffer;
+
+			GP.droppedFiles.push({
+				name: toUTF8Array(fileName),
+				contents: contents
+			});
+
+			console.log('Loaded file:', fileName);
+			return;
+
+		} catch (e) {
+			console.error('Capacitor read file failed:', e);
+			alert('读取文件失败: ' + e.message);
+			return;
+		}
 	}
 
 	if (hasChromeFilesystem()) {
