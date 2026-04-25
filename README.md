@@ -15,6 +15,10 @@ src\ gp_wasm.data gp_wasm.wasm gp_wasm.js
 在 `android/gradle.properties` 中添加一行配置信息
 `org.gradle.java.home=D:\\zwc\\app\\Androidstudio\\jbr`
 
+## IOS端
+
+vscode的git插件 不会自动更新远程仓库，需要手动同步 `git fetch origin`
+
 ## CoCube Android App for Tablet
 
 This app was created using [`@capacitor/create-app`](https://github.com/ionic-team/create-capacitor-app),  
