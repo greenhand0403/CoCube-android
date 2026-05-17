@@ -1705,7 +1705,7 @@ async function GP_ReadFile(ext) {
 	}
 
 	// Capacitor / iOS / Android: read from Documents/Microblocks
-	if (typeof window.Capacitor !== 'undefined' && window.Capacitor.isNativePlatform()) {
+	if (typeof window.Capacitor !== 'undefined' && window.Capacitor.getPlatform() === 'ios') {
 		try {
 			const { Filesystem } = window.Capacitor.Plugins;
 
