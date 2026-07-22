@@ -1,10 +1,12 @@
 ## 这是一个用于学习的项目
 
-有三个文件需要在microblocks smallvm 项目中生成 webAPP 再拷贝到 src 目录下
+有三个文件需要在 microblocks smallvm 项目中生成 web app 再将其中的三个文件拷贝到本项目的 src 目录下
 
 src\ gp_wasm.data gp_wasm.wasm gp_wasm.js
 
 目前将 cocube 的部分代码移除了，变成一个简单的 microblocks 安卓端
+
+### APP 相关
 
 修改图标和 APP 名称需要在 Android studio 中进行
 
